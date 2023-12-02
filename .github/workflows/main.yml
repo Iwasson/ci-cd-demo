@@ -9,8 +9,11 @@ on:
 jobs:
   Test-Script:
     runs-on: ubuntu-latest
+    env:
+      SUPER_SECRET_PASSWORD: ${{ secrets.SUPER_SECRET_PASSWORD }}
     steps:
       - uses: actions/checkout@v3
+      - run: pip install python-dotenv
       - run: python main.py
   
   Compile-CPP:
