@@ -12,3 +12,23 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: python main.py
+  
+  Compile-CPP:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: g++ main.cpp -o apex-hello-world
+      - uses: actions/upload-artifact@v3
+        with:
+          name: apex-hello-world
+          path: apex-hello-world
+  
+  Run-CPP:
+    runs-on: ubuntu-latest
+    needs: Compile-CPP
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: apex-hello-world
+      - run: chmod +x apex-hello-world
+      - run: ./apex-hello-world
